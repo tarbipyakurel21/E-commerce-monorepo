@@ -1,10 +1,8 @@
-🛒 E-commerce Monorepo
+🛒 E-commerce Monorepo--
 This monorepo contains all backend microservices and the frontend React application for a scalable e-commerce platform built using Java Spring Boot and React, following a modern microservices architecture.
 
 📦 Services Overview:
-
 🧩 Backend Microservices:
-
 auth-service/
 Handles user authentication, JWT token generation, password encryption with BCrypt, and Google OAuth integration.
 
@@ -28,15 +26,11 @@ Routes external requests to internal microservices, handling security and load b
 
 🖥️ Frontend React App:
 Located in /frontend/
-
 Built with React 18
-
 Communicates with backend via API Gateway
-
 Uses Redux Toolkit for global state (cart, auth,product)
 
 Integrates Stripe for secure payments
-
 Supports JWT and Google OAuth login
 
 Fully responsive layout
