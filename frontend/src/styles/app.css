@@ -1,0 +1,32 @@
+/* background color white and text
+color black for light mode */
+.app.light {
+    background-color: #ffffff;
+    color: #000000;
+  }
+
+  /* background color black and text
+color white for dark mode */
+  .app.dark {
+    background-color: #121212;
+    color: #ffffff;
+  }
+  
+   /* secondary navigation button */
+  .secondary-nav .btn{
+    background-color:transparent;
+    border:none;
+    color:#000;
+    transition: background-color 0.2s ease;
+  }
+ /* when hovering secondary nav */
+  .secondary-nav .btn:hover{
+    background-color:skyblue;
+  }
+
+  /* active category or when button is active */
+  .secondary-nav .btn.active-category{
+    background-color: white;
+    border: 1px solid #ccc;
+    color: #000;
+  }

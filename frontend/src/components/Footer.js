@@ -1,6 +1,8 @@
 import React from 'react';
 import {FaFacebookF,FaInstagram,FaTwitter} from 'react-icons/fa';
 
+// footer page to display all the options in our application
+//also credits and license and other social platforms we are live at
 const Footer = () => {
   return (
     <footer className="bg-dark text-light mt-5 py-4">

@@ -3,9 +3,9 @@ import { motion,AnimatePresence } from 'framer-motion';
 
 // Display different messages with animations
 const messages=[
-  { title: 'Welcome to MyShop', desc: 'Best deals, fast shipping, and top brands' },
-  { title: 'Discover Your Favorites', desc: 'Daily discounts and exclusive offers' },
-  { title: 'Fast & Secure Checkout', desc: 'Trusted by thousands of shoppers' }
+  { title: 'Welcome to MyShop By Tarbi', desc: 'Created with React & Powered by Spring Boot Microservices' },
+  { title: `What's in your Cart?`, desc: 'Managed by Redux+Context API' },
+  { title: 'Fast & Secure Checkout', desc: 'Powered by Stripe Integration' }
 ];
 
 //animations
@@ -13,9 +13,10 @@ const HeroSection = () => {
   const [index,setIndex]=useState(0);
 
   useEffect(()=>{
+    //setIndex 0,1,2 auto rotation through prev logic
 const interval=setInterval(()=>{
   setIndex(prev=>(prev+1)% messages.length);
-},3000);  //3 seconds
+},3000);  // runs every three seconds
   return ()=>clearInterval(interval);
 },[]);
 

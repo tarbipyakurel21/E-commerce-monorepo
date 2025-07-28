@@ -48,6 +48,9 @@ spring:
               filters:
                 - GatewayAuthFilter
 
+jwt:
+  secret: this_is_a_secure_secret_key_123456789!@
+
 eureka:
   client:
     register-with-eureka: true

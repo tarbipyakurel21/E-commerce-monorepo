@@ -1,19 +1,19 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+// Categories in the navbar
 const SecondaryNav = () => {
   const navigate = useNavigate();
+  //use location to search in the current url
   const location=useLocation();
   const links = [
     { label: 'All', value: 'All' },
-    { label: "Today's Deals", value: 'Deals' },
     { label: 'Electronics', value: 'Electronics' },
     { label: 'Fashion', value: 'Fashion' },
     { label: 'Books', value: 'Books' },
-    { label: 'Toys', value: 'Toys' },
-    { label: 'Health', value: 'Health' },
   ];
 
+  // search url for current category to style the current
   const currentCategory = new URLSearchParams(location.search).get('category');
 
   return (
@@ -26,23 +26,17 @@ const SecondaryNav = () => {
         const isActive = currentCategory === link.value;
 
         return (
+          // display the link.label according to index map and style according to isActive or not
           <button
             key={index}
-            className={`btn px-3 py-1 fw-medium ${
-              isActive ? 'bg-white border text-dark' : 'bg-transparent border-0 text-dark'
-            }`}
+            className={`btn px-3 py-1 fw-medium ${isActive ? 'active-category' : ''}`}
             onClick={() => navigate(`/products?category=${encodeURIComponent(link.value)}`)}
             style={{
               fontSize: '0.9rem',
               transition: 'background-color 0.2s ease',
             }}
-            onMouseEnter={(e) => {
-              if (!isActive) e.currentTarget.style.backgroundColor = '#dfe6ed'; // darker hover
-            }}
-            onMouseLeave={(e) => {
-              if (!isActive) e.currentTarget.style.backgroundColor = 'transparent';
-            }}
           >
+            
             {link.label}
           </button>
         );

@@ -2,33 +2,33 @@
 import axiosInstance from './axiosInstance';
 import { API } from '../constants/api';
 
+//fetch all products based on category
 export const fetchProducts = (category) => {
   const url = category ? `${API.PRODUCTS.ALL}?category=${category}` : API.PRODUCTS.ALL;
   return axiosInstance.get(url);
 };
 
+//fetch products with id
 export const fetchProductById = (id) => axiosInstance.get(API.PRODUCTS.SINGLE(id));
 
-export const createProduct = (productData, token) =>
-  axiosInstance.post(API.PRODUCTS.CREATE, productData, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+//add product
+export const createProduct = (productData) =>
+  axiosInstance.post(API.PRODUCTS.CREATE, productData);
 
-export const updateProduct = (id, data, token) =>
-  axiosInstance.put(API.PRODUCTS.UPDATE(id), data, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+//update
+export const updateProduct = (id, data) =>
+  axiosInstance.put(API.PRODUCTS.UPDATE(id), data);
 
-export const deleteProduct = (id, token) =>
-  axiosInstance.delete(API.PRODUCTS.DELETE(id), {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+//delete
+export const deleteProduct = (id) =>
+  axiosInstance.delete(API.PRODUCTS.DELETE(id));
 
-  export const searchProductsByNameAndCategory = (name, category) => {
+//search by name and category both
+export const searchProductsByNameAndCategory = (name, category) => {
     return axiosInstance.get(API.PRODUCTS.FILTER, {
       params: { name, category },
     });
   };
   
-
+//search product by name
 export const searchProducts = (name) => axiosInstance.get(API.PRODUCTS.SEARCH(name));

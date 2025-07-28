@@ -1,21 +1,23 @@
 import React, { useState,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { loginUser } from "../api/auth";
-import { jwtDecode } from "jwt-decode";
+import { decodeToken } from "../utils/JwtUtils";
 import { FaGoogle } from "react-icons/fa";
 
 const LoginPage = () => {
   const [form, setForm] = useState({ identifier: "", password: "" });
+  //use authContext for login
   const { login } = useAuth();
   const navigate = useNavigate();
 
+  // check if we already have the token to avoid login
   useEffect(() => {
-    const storedToken = localStorage.getItem("accessToken"); // or use context `token`
+    const storedToken = localStorage.getItem("accessToken"); 
     if (storedToken) {
       try {
-        const decoded = jwtDecode(storedToken);
-        if (decoded.exp * 1000 > Date.now()) {
+        //decode the token 
+        const decoded=decodeToken(storedToken);
+       if(!isTokenExpired(decoded)){
           navigate("/products");
         }
       } catch (e) {
@@ -24,37 +26,25 @@ const LoginPage = () => {
     }
   }, []);
 
-
+// check if token is expired
   const isTokenExpired = (decoded) => {
     return decoded.exp * 1000 < Date.now();
   };
 
+  // handle login
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await loginUser(form);
-      const { accessToken, refreshToken, message } = response.data;
-
-      if (!accessToken || typeof accessToken !== 'string' || accessToken.split('.').length !== 3) {
-        alert("Login failed: Invalid token received from server.");
-        return;
-      }
-
-      const decoded = jwtDecode(accessToken);
-      if (isTokenExpired(decoded)) {
-        alert("Login failed: Token is expired");
-        return;
-      }
-
-      login(accessToken);
-      navigate("/products");
+      // use authcontext with form
+      const response = await login(form);
+      navigate("/");
     } catch (err) {
       alert("Invalid credentials. Please try again.");
     }
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:8081/oauth2/authorization/google";
+    window.location.href = `${process.env.REACT_APP_URL}/oauth2/authorization/google`;
   };
 
   return (
@@ -89,26 +79,15 @@ const LoginPage = () => {
           </div>
           <button type="submit" className="btn btn-warning w-100">Continue</button>
         </form>
-
-        <div className="text-center my-3">
-          <small>By continuing, you agree to MyShop's <a href="#">Conditions of Use</a> and <a href="#">Privacy Notice</a>.</small>
-        </div>
-
-        <div className="text-center mb-2">
+        <hr />
+        <div className="text-center mb-2 mt-3">
           <button className="btn btn-outline-danger w-100" onClick={handleGoogleLogin}>
             <FaGoogle className="me-2" /> Continue with Google
           </button>
         </div>
 
-        <div className="text-center">
-          <small><a href="#">Need help?</a></small>
-        </div>
-
-        <hr />
-
-        <div className="text-center">
-          <small>Buying for work? <a href="#">Create a free business account</a></small>
-        </div>
+        
+       
 
         <div className="text-center mt-3">
           <small>Don't have an account? <a href="/register">Register</a></small>
@@ -117,11 +96,11 @@ const LoginPage = () => {
 
       <div className="mt-4 text-center">
         <small>
-          <a href="#" className="mx-2">Conditions of Use</a>
-          <a href="#" className="mx-2">Privacy Notice</a>
+          <a href="#" className="mx-2">Terms</a>
+          <a href="#" className="mx-2">Privacy</a>
           <a href="#" className="mx-2">Help</a>
           <br />
-          © 1996–2025, MyShop.com, Inc. or its affiliates
+          © 2025, MyShop.com
         </small>
       </div>
     </div>

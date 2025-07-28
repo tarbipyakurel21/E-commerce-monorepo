@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +24,7 @@ import com.tarbi.dto.UserInfoResponse;
 import com.tarbi.model.User;
 import com.tarbi.service.AuthService;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 
@@ -41,23 +43,21 @@ public ResponseEntity<AuthResponse> register (@Valid @RequestBody RegisterReques
 }
 
 @PostMapping("/login")
-public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request){
-	return authService.login(request);
+public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request, HttpServletResponse response) {
+    return authService.login(request, response);
 }
 
 
 @PostMapping("/logout")
-	public ResponseEntity<String> logout(@RequestHeader("Authorization") String authHeader){
-	
-		// remove bearer prefix
-		String token=authHeader.replace("Bearer ","");
-		return authService.logout(token);
+public ResponseEntity<String> logout(@CookieValue("accessToken") String accessToken, HttpServletResponse response) {
+    // Invalidate token
+   return authService.logout(accessToken, response);
 }
 
+
 @PostMapping("/refresh")
-public ResponseEntity<AuthResponse> refreshAccessToken(@RequestBody Map<String,String> request){
-String refreshToken=request.get("refreshToken");
-return authService.refreshAccessToken(refreshToken);
+public ResponseEntity<AuthResponse> refreshAccessToken(@CookieValue(name="refreshToken",required=false)String refreshToken,HttpServletResponse response){
+return authService.refreshAccessToken(refreshToken,response);
 }
 
 @GetMapping("/oauth2/success")
@@ -65,18 +65,18 @@ public ResponseEntity<AuthResponse> oauthSuccess(@AuthenticationPrincipal OAuth2
 	return authService.handleOAuthSuccess(principal);
 }
 
-@PostMapping("/validate")
-public ResponseEntity<UserInfoResponse> validateToken(@RequestBody TokenRequest request){
-	try {
-		UserInfoResponse userInfo=authService.validateToken(request.getAccessToken());
-		System.out.println("[AuthService] Received token to validate: ");
-		return ResponseEntity.ok(userInfo);
-	}
-	catch(RuntimeException e) {
-		return ResponseEntity.status(401).body(null);
-		}
+@GetMapping("/validate")
+public ResponseEntity<?> validateUser(@CookieValue(name = "accessToken", required = false) String token) {
+    if (token == null || token.isEmpty()) {
+        return ResponseEntity.status(401).body(Map.of("error", "Access token missing"));
+    }
+    try {
+        UserInfoResponse userInfo = authService.validateToken(token);
+        return ResponseEntity.ok(userInfo);
+    } catch (Exception e) {
+        return ResponseEntity.status(401).body(Map.of("error", "Invalid or expired access token"));
+    }
 }
-
 }
 
 

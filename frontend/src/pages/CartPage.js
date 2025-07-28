@@ -1,53 +1,53 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getCart as apiGetCart } from '../api/cart';
-import { setCartItems } from '../redux/cartSlice';
 import { toast } from 'react-toastify';
-import useCartActions from '../hooks/useCartActions';
-import { createOrder } from '../api/orders';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
+import { createOrder } from '../api/orders';
+
 
 const CartPage = () => {
-  const cartItems = useSelector((state) => state.cart.items);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {
-    handleAddToCart,
-    handleRemoveFromCart,
-    handleSubtractFromCart,
-  } = useCartActions();
 
+  // Get cart state and actions from context
+  const { items: cartItems, fetchUserCart, addItem, removeItem, subtractItem, status, error } = useCart();
+
+  // if cannot fetch cart navigate login 
+  // you need user to fetch the cart
   useEffect(() => {
-    apiGetCart()
-      .then((res) => dispatch(setCartItems(res.data.items)))
+    fetchUserCart()
       .catch((err) => {
         console.error("Failed to load cart", err);
         toast.error("Could not load cart.");
         if (err.response?.status === 401) window.location.href = "/login";
       });
-  }, [dispatch]);
-
+  }, [fetchUserCart]);
+  
+// on checkout create an order and navigate payment
   const handleCheckout = async () => {
     try {
       const orderItems = cartItems.map(item => ({
         productId: item.productId,
         quantity: item.quantity,
       }));
-  
-      // Create order with correct payload structure
+
       const order = await createOrder({ items: orderItems });
-  
-      navigate(`/payment/${order.orderId}`); // Go to payment page with orderId
+      navigate(`/payment/${order.orderId}`);
     } catch (err) {
       console.error("Checkout failed", err);
       toast.error("Could not proceed to payment.");
     }
   };
 
+  // check status from cart context
+  if (status === 'loading') {
+    return <p className="text-center mt-5">Loading your cart...</p>;
+  }
+// if cartItems is not found 
   if (!cartItems || cartItems.length === 0) {
     return <p className="text-center mt-5">Your cart is empty.</p>;
   }
 
+  // calculate total price using cartItems
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const tax = subtotal * 0.07;
   const total = subtotal + tax;
@@ -67,14 +67,14 @@ const CartPage = () => {
                 <h6>{item.productName}</h6>
                 <p className="mb-1 text-muted">${item.price.toFixed(2)} each</p>
                 <div className="d-flex align-items-center">
-                  <button className="btn btn-sm btn-outline-secondary me-2" onClick={() => handleSubtractFromCart({ ...item, id: item.productId })}>-</button>
+                  <button className="btn btn-sm btn-outline-secondary me-2" onClick={() => subtractItem(item.productId)}>-</button>
                   <span>{item.quantity}</span>
-                  <button className="btn btn-sm btn-outline-secondary ms-2" onClick={() => handleAddToCart({ ...item, id: item.productId })}>+</button>
+                  <button className="btn btn-sm btn-outline-secondary ms-2" onClick={() => addItem(item)}>+</button>
                 </div>
                 <p className="mt-2"><strong>Total:</strong> ${(item.price * item.quantity).toFixed(2)}</p>
                 <button
                   className="btn btn-sm btn-link text-danger p-0"
-                  onClick={() => handleRemoveFromCart(item.productId)}
+                  onClick={() => removeItem(item.productId)}
                 >
                   Remove
                 </button>

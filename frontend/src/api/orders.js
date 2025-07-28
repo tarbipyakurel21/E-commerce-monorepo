@@ -2,7 +2,6 @@ import axiosInstance from '../api/axiosInstance';
 import { API } from '../constants/api';
 
 // Create a new order 
-// Create a new order 
 export const createOrder = async (orderData) => {
   try {
     const response = await axiosInstance.post(API.ORDERS.CREATE, orderData);

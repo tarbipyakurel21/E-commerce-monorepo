@@ -1,61 +1,63 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { fetchProductById, fetchProducts } from '../api/product';
-import { useNavigate } from 'react-router-dom';
-import useCartActions from '../hooks/useCartActions';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useProduct } from '../context/ProductContext';
+import { useCart } from '../context/CartContext';
 
 const ProductDetailPage = () => {
+  // use params to find id
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
+  const navigate = useNavigate();
+  // fetch from ai recommendations service later
   const [recommendations, setRecommendations] = useState([]);
-  const navigate=useNavigate();
-  const { handleAddToCart } = useCartActions();
+  // use productContext
+  const { products, productDetails, fetchProduct, fetchProducts, status } = useProduct();
+  //use cartcontext
+  const { addItem } = useCart();
 
   useEffect(() => {
-    const load = async () => {
-      try {
-        const res = await fetchProductById(id);
-        setProduct(res.data);
-        const all = await fetchProducts();
-        const similar = all.data.filter(p =>
-          p.category === res.data.category && p.id !== res.data.id
-        ).slice(0, 8); 
+    fetchProduct(id);
+    fetchProducts(); // ensure all products are loaded for recommendations
+  }, [id, fetchProduct, fetchProducts]);
+
+  useEffect(() => {
+    //set as many recommendations using slice and filter
+    if (products && productDetails) {
+      const similar = products.filter(p =>
+        p.category === productDetails.category && p.id !== productDetails.id
+      ).slice(0, 8);
       setRecommendations(similar);
-      } catch (err) {
-        console.error("Error loading product:", err);
-      }
-    };
-    load();
-  }, [id]);
+    }
+  }, [products, productDetails]);
 
+  if (status === 'loading' || !productDetails) return <div className="text-center py-5">Loading...</div>;
 
-  if (!product) return <div className="text-center py-5">Loading...</div>;
   return (
     <div className="container py-5">
       <div className="row mb-5 align-items-center">
         <div className="col-md-6 text-center">
           <img
-            src={product.imageUrl}
-            alt={product.name}
+            src={productDetails.imageUrl}
+            alt={productDetails.name}
             className="img-fluid"
             style={{ maxHeight: '400px', objectFit: 'contain' }}
           />
         </div>
         <div className="col-md-6">
-          <h2 className="fw-bold mb-3">{product.name}</h2>
-          <p className="text-muted">{product.description}</p>
-          <h4 className="text-dark fw-bold mb-3">${product.price}</h4>
-          <p className={`fw-semibold ${product.quantity > 0 ? 'text-success' : 'text-danger'}`}>
-            {product.quantity > 0 ? `In Stock: ${product.quantity}` : 'Out of Stock'}
+          <h2 className="fw-bold mb-3">{productDetails.name}</h2>
+          <p className="text-muted">{productDetails.description}</p>
+          <h4 className="text-dark fw-bold mb-3">${productDetails.price}</h4>
+          <p className={`fw-semibold ${productDetails.quantity > 0 ? 'text-success' : 'text-danger'}`}>
+            {productDetails.quantity > 0 ? `In Stock: ${productDetails.quantity}` : 'Out of Stock'}
           </p>
           <button
             className="btn btn-warning btn-lg mt-3"
-            onClick={() => handleAddToCart(product)} >
+            onClick={() => addItem(productDetails)}
+          >
             Add to Cart
           </button>
         </div>
       </div>
-  
+
       <h4 className="mb-4 fw-semibold">Recommended for you</h4>
       <div className="row g-3">
         {recommendations.map((rec) => (

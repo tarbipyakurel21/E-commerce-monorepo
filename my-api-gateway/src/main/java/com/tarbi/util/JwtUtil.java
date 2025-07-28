@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.function.Function;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -13,8 +14,13 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtUtil {
 
-	public static final String SECRET="this_is_a_secure_secret_key_123456789!@#";
-	
+	@Value("${jwt.secret}")
+	private String secret;
+
+	public String getSecretForDebug() {
+	    return secret;
+	}
+
 	
 	public void validateToken(final String token) {
 		Jwts
@@ -26,7 +32,7 @@ public class JwtUtil {
 	}
 	
 	private Key getSignKey() {
-	    return Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
+	    return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
 	}
 
 	public Long extractUserId(String token) {

@@ -3,6 +3,7 @@ import axios from "axios";
 
 const axiosInstance = axios.create();
 
+//use accessToken for every request
 axiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem("accessToken");
   if (token) {
@@ -12,3 +13,4 @@ axiosInstance.interceptors.request.use((config) => {
 });
 
 export default axiosInstance;
+
