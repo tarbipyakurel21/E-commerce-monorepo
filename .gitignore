@@ -35,6 +35,7 @@ target/
 .idea/
 .vscode/
 *.iml
+.project
 
 # Coverage / test reports
 coverage/
