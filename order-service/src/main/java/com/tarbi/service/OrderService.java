@@ -79,11 +79,12 @@ public class OrderService {
     private OrderResponse mapToOrderResponse(Order order) {
         OrderResponse response = new OrderResponse();
         response.setOrderId(order.getId());
-        response.setTotalAmount(order.getTotalAmount());
         response.setStatus(order.getStatus());
         response.setCreatedAt(order.getCreatedAt());
 
         List<OrderItemResponse> itemResponses = new ArrayList<>();
+        double subtotal = 0.0;
+
         for (OrderItem item : order.getItems()) {
             OrderItemResponse itemRes = new OrderItemResponse();
             itemRes.setProductId(item.getProductId());
@@ -91,16 +92,41 @@ public class OrderService {
             itemRes.setQuantity(item.getQuantity());
             itemRes.setPrice(item.getPrice());
             itemResponses.add(itemRes);
+
+            subtotal += item.getPrice() * item.getQuantity();
         }
 
+        double tax = subtotal * 0.07;
+        double total = subtotal + tax;
+
         response.setItems(itemResponses);
+        response.setSubtotal(subtotal);
+        response.setTax(tax);
+        response.setTotalAmount(total);
+
         return response;
     }
+
 
     public double getOrderTotal(Long orderId) {
         Order order = orderRepository.findById(orderId)
             .orElseThrow(() -> new RuntimeException("Order not found"));
         return order.getTotalAmount();
     }
+
+    public OrderResponse getOrderById(Long orderId, Long userId) {
+        Order order = orderRepository.findById(orderId)
+            .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        if (!order.getUserId().equals(userId)) {
+            throw new RuntimeException("Access denied: You don't own this order");
+        }
+
+        return mapToOrderResponse(order);
+    }
+
+	public void removeOrderById(Long orderId) {
+		orderRepository.deleteById(orderId);
+	}
 
 }

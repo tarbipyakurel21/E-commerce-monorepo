@@ -57,6 +57,12 @@
 </dependency>
 
 <dependency>
+  <groupId>org.springframework.cloud</groupId>
+  <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+</dependency>
+
+
+<dependency>
   <groupId>com.stripe</groupId>
   <artifactId>stripe-java</artifactId>
   <version>24.20.0</version>
