@@ -103,13 +103,14 @@ For all other microservices:
 DB_PASSWORD=your_db_password
 
 🌐 Frontend Example (frontend/.env):
-REACT_APP_API_BASE_URL=http://localhost:8080
-REACT_APP_STRIPE_PUBLIC_KEY=your_stripe_publishable_key
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8080
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
 Ensure port 8080 matches your API Gateway.
 
 🚀 How to Run
 🧩 Backend Services
--ensure you have the .env file and the right keys first
+- create .env file for every microservice
+- replace with .env example and secrets
 
 From the root of each service folder:
 bash
