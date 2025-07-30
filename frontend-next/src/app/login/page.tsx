@@ -1,26 +1,23 @@
 'use client';
 
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { FaGoogle } from "react-icons/fa";
+import React, { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
+import UserPage from "@/app/login/UserPage"; // import the UserPage component
+import { FaGoogle } from "react-icons/fa";
 
 const LoginPage = () => {
   const [form, setForm] = useState({ identifier: "", password: "" });
-  const router = useRouter();
   const { login, user, loading } = useAuth();
 
-  // ✅ If already logged in, redirect to /products
-  useEffect(() => {
-    if (!loading && user) {
-      router.push("/products");
-    }
-  }, [loading, user]);
+  // Show UserPage if already logged in
+  if (!loading && user) {
+    return <UserPage />;
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await login(form); // context-based login
+      await login(form);
     } catch (err) {
       alert("Invalid credentials. Please try again.");
     }

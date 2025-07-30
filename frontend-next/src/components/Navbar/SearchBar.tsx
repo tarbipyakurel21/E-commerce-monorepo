@@ -124,10 +124,10 @@ const SearchBar = () => {
 
       {/* Search Button */}
       <button
-        className="btn text-white"
+        className="btn text-black"
         onClick={handleSearch}
         style={{
-          backgroundColor: '#febd69',
+          backgroundColor: 'orange',
           borderRadius: '0',
           minWidth: '60px',
         }}

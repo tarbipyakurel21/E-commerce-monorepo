@@ -5,7 +5,6 @@ import TopNav from "@/components/Navbar/TopNav";
 import SecondaryNav from "@/components/Navbar/SecondaryNav";
 import Footer from "@/components/Footer";
 import { Toast } from "@/components/toast";
-import GlobalAuth from "@/authentication/GlobalAuthChecker";
 
 // use metadata for SEO
 export const metadata: Metadata = {
@@ -31,7 +30,6 @@ export default function RootLayout({
           <Providers>
             <TopNav />
             <SecondaryNav />
-            <GlobalAuth/> 
             {children}
             <Footer />
           <Toast/>

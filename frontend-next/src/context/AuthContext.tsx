@@ -54,7 +54,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     await loginUser(data);
     const res = await validateUser();
     setUser({ username: res.data.username, role: String(res.data.role) });
-    router.push('/');
   };
 
   const register = async (data: RegisterRequest) => {

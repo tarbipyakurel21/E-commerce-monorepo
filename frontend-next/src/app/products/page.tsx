@@ -8,6 +8,7 @@ import type {Product}  from '@/services/product';
 import ErrorFallback from '@/components/ErrorFallback';
 import { addToCart } from '@/redux/cartSlice';
 import Loader from '@/components/Loader';
+import { toast } from '@/components/toast';
 
 const ProductsPageClient = () => {
   const router = useRouter();
@@ -17,10 +18,21 @@ const ProductsPageClient = () => {
   const category = searchParams.get("category") || '';
   const search = searchParams.get("search") || '';
 
-
-  const handleAdd = (productId: number) => {
-    dispatch(addToCart({ productId, quantity: 1 }));
+  const handleAdd = async (productId: number) => {
+    try {
+      // `.unwrap()` will throw if the API call fails (e.g., 401)
+      await dispatch(addToCart({ productId, quantity: 1 })).unwrap();
+      toast.success('✅ Added to cart!');
+    } catch (error: any) {
+      // This will now catch 401 Unauthorized or any other error
+      if (error?.response?.status === 401) {
+        toast.error('❌ Please sign in first!');
+      } else {
+        toast.error('❌ Failed to add product');
+      }
+    }
   };
+  
 
   const {
     data: products,
@@ -31,10 +43,14 @@ const ProductsPageClient = () => {
     : useProducts();
 
   if(isLoading) return <Loader/>;
-  if (isError || !products) {return (<ErrorFallback
-  message="Failed to load products. Please try again."
-  onRetry={() => window.location.reload()} // optional, or use window.location.reload()
-/>);}
+  if (isError || !products) {
+    return (
+      <ErrorFallback
+        message="Failed to load products. Please try again."
+        onRetry={() => window.location.reload()}
+      />
+    );
+  }
   if (products.length === 0) return <p className="text-center">No products found.</p>;
 
   return (
@@ -64,8 +80,11 @@ const ProductsPageClient = () => {
                   <p className="text-muted small mb-1 text-truncate">{product.description}</p>
                   <p className="fw-bold text-dark mb-1">${product.price}</p>
                   <p className="text-success small mb-2">In Stock: {product.quantity}</p>
+                  
+                  {/* Updated button color to blue */}
                   <button
-                    className="btn btn-sm btn-warning w-100"
+                    className="btn btn-sm w-100 text-white"
+                    style={{ backgroundColor: '#1D4ED8', borderColor: '#1D4ED8' }} // Tailwind Indigo-600
                     onClick={(e) => {
                       e.stopPropagation();
                       handleAdd(product.id);
@@ -73,6 +92,7 @@ const ProductsPageClient = () => {
                   >
                     Add to Cart
                   </button>
+
                 </div>
               </div>
             </div>

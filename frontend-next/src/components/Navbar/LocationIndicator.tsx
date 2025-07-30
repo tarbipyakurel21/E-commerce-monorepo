@@ -52,10 +52,10 @@ const LocationIndicator = () => {
     <div className="text-center my-4 px-4">
       <div className="flex justify-center items-center gap-2 flex-wrap">
         <button
-          className="text-white bg-transparent hover:text-blue-300 transition-colors duration-200"
+          className="text-blue bg-transparent hover:text-blue-300 transition-colors duration-200"
           onClick={() => setShowModal(true)}
         >
-          <FaMapMarkerAlt className="text-xl" />
+          <FaMapMarkerAlt className="text-xl bg-blue" />
         </button>
         <span className="text-sm sm:text-base md:text-lg font-medium text-white truncate max-w-[90vw]">
           {location}
