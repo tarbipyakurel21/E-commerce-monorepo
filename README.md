@@ -31,44 +31,40 @@ Built with next.js
 Communicates with backend via API Gateway
 Uses Redux Toolkit for global cart state, stripe elements for payment, react hooks for 
 products and context for authentication.
-
 Supports JWT and Google OAuth login
-
 Fully responsive layout
 
 🧰 Tech Stack:
 
 ⚙️ Backend:
 
-Java 17, Spring Boot
+- Java, Spring Boot
 
-Spring Security, Spring Cloud Gateway, Eureka
+- Spring Security, Spring Cloud Gateway, Eureka
 
-JWT, BCrypt, Google OAuth 2.0
+- JWT, BCrypt, Google OAuth 2.0
 
-MySQL for databases
+- MySQL for databases
 
-Redis for caching & token storage
+- Stripe API for payments
 
-Stripe API for payments
+- REST (with optional Kafka for future event streaming)
 
-REST (with optional Kafka for future event streaming)
+- Docker + GitHub Actions CI/CD
 
-Docker + GitHub Actions CI/CD
-
-Deployable on Render or AWS ECS
+- Deployable on Render or AWS ECS
 
 ⚙️ Frontend:
 
-React 18
+- React, Next.js
+  
+- Redux Toolkit, App router
 
-Redux Toolkit, React Router
+- Axios with interceptors
 
-Axios with interceptors
+- Tailwind css 
 
-Bootstrap 
-
-Stripe.js + React Stripe Elements
+- Stripe.js + React Stripe Elements
 
 🧪 Running the Project Locally:
 
@@ -76,13 +72,13 @@ Stripe.js + React Stripe Elements
 
 Backend:
 
-Java 17
+Java
 
 Maven
 
 MySQL
 
-Docker (optional for containerization)
+Docker 
 
 Frontend:
 
@@ -122,6 +118,6 @@ dotenv -e .env -- mvn spring-boot:run (this is faster)
 
 🖥️ Frontend App
 bash
-cd frontend
+cd frontend-next
 npm install
-npm start donot change any languague just change the formatting so that it is displyed nicely in readme
+npm run dev
