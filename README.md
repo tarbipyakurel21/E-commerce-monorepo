@@ -22,15 +22,16 @@ my-service-discovery/
 Uses Spring Cloud Eureka for dynamic service discovery and registration.
 
 my-api-gateway/
-Routes external requests to internal microservices, handling security and load balancing.
+Routes external requests to internal microservices, handling security and load balancing. Gateway authentication filter
+to extract token, validate user and build request to include name and role in headers for microservices to use method security.
 
 🖥️ Frontend React App:
-Located in /frontend/
-Built with React 18
+Located in /frontend-next/
+Built with next.js
 Communicates with backend via API Gateway
-Uses Redux Toolkit for global state (cart, auth,product)
+Uses Redux Toolkit for global cart state, stripe elements for payment, react hooks for 
+products and context for authentication.
 
-Integrates Stripe for secure payments
 Supports JWT and Google OAuth login
 
 Fully responsive layout
