@@ -3,12 +3,13 @@
 import React from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useProducts, useFilteredProducts } from '@/hooks/products';
-import { useAppDispatch} from '@/redux/hooks';
-import type {Product}  from '@/services/product';
+import { useAppDispatch } from '@/redux/hooks';
+import type { Product } from '@/services/product';
 import ErrorFallback from '@/components/ErrorFallback';
 import { addToCart } from '@/redux/cartSlice';
 import Loader from '@/components/Loader';
 import { toast } from '@/components/toast';
+import { AxiosError } from 'axios';
 
 const ProductsPageClient = () => {
   const router = useRouter();
@@ -18,31 +19,30 @@ const ProductsPageClient = () => {
   const category = searchParams.get("category") || '';
   const search = searchParams.get("search") || '';
 
+  // ✅ Unconditional hook calls to comply with React rules
+  const filtered = useFilteredProducts(search, category);
+  const all = useProducts();
+
+  // ✅ Decide which data to use
+  const products = search || category ? filtered.data : all.data;
+  const isLoading = search || category ? filtered.isLoading : all.isLoading;
+  const isError = search || category ? filtered.isError : all.isError;
+
   const handleAdd = async (productId: number) => {
     try {
-      // `.unwrap()` will throw if the API call fails (e.g., 401)
       await dispatch(addToCart({ productId, quantity: 1 })).unwrap();
       toast.success('✅ Added to cart!');
-    } catch (error: any) {
-      // This will now catch 401 Unauthorized or any other error
-      if (error?.response?.status === 401) {
+    } catch (error: unknown) {
+      // ✅ Proper AxiosError check
+      if (error instanceof AxiosError && error.response?.status === 401) {
         toast.error('❌ Please sign in first!');
       } else {
         toast.error('❌ Failed to add product');
       }
     }
   };
-  
 
-  const {
-    data: products,
-    isLoading,
-    isError,
-  } = search || category
-    ? useFilteredProducts(search, category)
-    : useProducts();
-
-  if(isLoading) return <Loader/>;
+  if (isLoading) return <Loader />;
   if (isError || !products) {
     return (
       <ErrorFallback
@@ -51,13 +51,14 @@ const ProductsPageClient = () => {
       />
     );
   }
+
   if (products.length === 0) return <p className="text-center">No products found.</p>;
 
   return (
     <div className="container-fluid py-4 d-flex justify-content-center">
       <div style={{ maxWidth: '1200px', width: '100%' }}>
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-          {products.map((product:Product) => (
+          {products.map((product: Product) => (
             <div key={product.id} className="col">
               <div
                 className="bg-white h-100 p-2 rounded border product-tile"
@@ -80,11 +81,10 @@ const ProductsPageClient = () => {
                   <p className="text-muted small mb-1 text-truncate">{product.description}</p>
                   <p className="fw-bold text-dark mb-1">${product.price}</p>
                   <p className="text-success small mb-2">In Stock: {product.quantity}</p>
-                  
-                  {/* Updated button color to blue */}
+
                   <button
                     className="btn btn-sm w-100 text-white"
-                    style={{ backgroundColor: '#1D4ED8', borderColor: '#1D4ED8' }} // Tailwind Indigo-600
+                    style={{ backgroundColor: '#1D4ED8', borderColor: '#1D4ED8' }}
                     onClick={(e) => {
                       e.stopPropagation();
                       handleAdd(product.id);
@@ -92,7 +92,6 @@ const ProductsPageClient = () => {
                   >
                     Add to Cart
                   </button>
-
                 </div>
               </div>
             </div>

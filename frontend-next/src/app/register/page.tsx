@@ -3,10 +3,10 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
-import { useAuth } from '@/context/AuthContext'; // update path as needed
+import { useAuth } from '@/context/AuthContext';
 
 const RegisterPage = () => {
-  const { register } = useAuth(); // ✅ use register from context
+  const { register } = useAuth();
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -26,12 +26,13 @@ const RegisterPage = () => {
         password: form.password,
       });
       toast.success('Registration successful!');
-      // router.push('/') is handled in context
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Register error:', err);
-      const msg =
-        err?.response?.data?.message || 'Registration failed. Please try again.';
-      toast.error(msg);
+      const message =
+        err && typeof err === 'object' && 'response' in err
+          ? (err as any)?.response?.data?.message
+          : 'Registration failed. Please try again.';
+      toast.error(message);
     }
   };
 

@@ -122,7 +122,7 @@ const UserPage = () => {
                 <Loader className="animate-spin w-6 h-6 text-indigo-600" />
               </div>
             ) : orders.length === 0 ? (
-              <p className="text-gray-600">You haven't placed any orders yet.</p>
+              <p className="text-gray-600">You haven&rsquo;t placed any orders yet.</p>
             ) : (
               <div className="space-y-4">
                 {orders.map((order) => (

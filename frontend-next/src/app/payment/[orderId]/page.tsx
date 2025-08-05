@@ -27,9 +27,14 @@ const PaymentPage = () => {
 
         const orderData = await getOrderById(orderId as string);
         setOrder(orderData);
-      } catch (err: any) {
-        console.error('Failed to initialize payment:', err);
-        toast.error(err?.response?.data?.message || 'Could not load payment details.');
+      } catch (err: unknown) {
+        if (err && typeof err === 'object' && 'response' in err) {
+          const axiosError = err as { response?: { data?: { message?: string } } };
+          toast.error(axiosError.response?.data?.message || 'Could not load payment details.');
+        } else {
+          toast.error('Could not load payment details.');
+        }
+    
       } finally {
         setLoading(false);
       }

@@ -3,8 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { FaSearch } from 'react-icons/fa';
-import { searchProducts } from '@/services/product'; // Adjust as needed
-import 'bootstrap/dist/css/bootstrap.min.css'; // using bootstrap 
+import { searchProducts, Product } from '@/services/product';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -46,7 +46,7 @@ const SearchBar = () => {
     if (searchTerm.trim().length > 1) {
       searchProducts(searchTerm)
         .then((res) => {
-          const names = res.data.map((p: any) => p.name);
+          const names = res.data.map((p: Product) => p.name);
           setSuggestions(names);
           setShowSuggestions(true);
         })
