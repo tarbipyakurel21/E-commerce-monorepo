@@ -1,4 +1,4 @@
-🛒 E-commerce Monorepo--
+🛒 E-commerce Monorepo---
 This monorepo contains all backend microservices and the frontend React application for a scalable e-commerce platform built using Java Spring Boot and React, following a modern microservices architecture.
 
 📦 Services Overview:
