@@ -1,0 +1,64 @@
+productId,name,description,price,stock,category,created_at
+1,Wireless Mouse,"Ergonomic wireless mouse with 1600 DPI.",19.99,136,electronics,2025-06-14 19:12:55
+2,Bluetooth Headphones,"Noise-cancelling over-ear headphones.",59.99,80,Electronics,2025-06-14 19:12:55
+3,Water Bottle,"Insulated stainless steel water bottle.",14.49,200,Home & Kitchen,2025-06-14 19:12:55
+4,Yoga Mat,"Non-slip yoga mat for fitness routines.",22.99,100,Sports,2025-06-14 19:12:55
+5,Smartphone Stand,"Adjustable stand for phones and tablets.",11.99,300,Accessories,2025-06-14 19:12:55
+6,Desk Lamp,"LED desk lamp with brightness controls.",27.5,75,Home & Office,2025-06-14 19:12:55
+7,Notebook Pack,"Pack of 3 ruled notebooks.",9.99,500,Stationery,2025-06-14 19:12:55
+8,Gaming Keyboard,"Mechanical RGB backlit keyboard.",49.99,60,Gaming,2025-06-14 19:12:55
+9,Running Shoes,"Lightweight shoes for jogging.",39.95,90,Clothing,2025-06-14 19:12:55
+10,Scented Candles,"Set of 4 scented candles for relaxation.",18.75,120,giftcards,2025-06-14 19:12:55
+11,Apple iPhone 14,"Latest model with improved camera and performance.",799,50,Electronics,2025-06-15 11:09:33
+12,Samsung Galaxy S23,"Flagship Android smartphone with high-resolution display.",749,35,Electronics,2025-06-15 11:09:33
+13,Sony WH-1000XM5,"Noise cancelling over-ear headphones.",349,60,Electronics,2025-06-15 11:09:33
+14,The Lean Startup,"Best-selling book on building startups.",19.99,100,Books,2025-06-15 11:09:33
+15,Nike Air Max 270,"Comfortable running shoes with modern design.",129.99,80,fashion,2025-06-15 11:09:33
+16,Instant Pot Duo 7-in-1,"Electric pressure cooker for fast home meals.",89,40,Home,2025-06-15 11:09:33
+17,Logitech MX Master 3,"Advanced ergonomic wireless mouse.",99,45,Electronics,2025-06-15 11:09:33
+18,Adidas Ultraboost 22,"High-performance sports running shoes.",180,55,Clothing,2025-06-15 11:09:33
+19,Dell XPS 13,"Ultralight laptop with 13\" InfinityEdge display.",999,20,Electronics,2025-06-15 11:09:33
+20,HP DeskJet 3755,"Compact wireless all-in-one printer.",69.99,70,Electronics,2025-06-15 11:09:33
+21,Anker PowerCore 10000,"Portable charger with fast-charging support.",29.99,150,Electronics,2025-06-15 11:09:33
+22,Kindle Paperwhite,"Waterproof e-reader with adjustable light.",139.99,90,Electronics,2025-06-15 11:09:33
+23,Crocs Classic Clogs,"Lightweight and comfy casual footwear.",44.99,100,Clothing,2025-06-15 11:09:33
+24,Hamilton Beach Toaster,"2-slice toaster with auto shutoff.",25.99,50,Home,2025-06-15 11:09:33
+25,Wilson Evolution Basketball,"Top-rated indoor basketball.",59.99,25,toys,2025-06-15 11:09:33
+26,Apple MacBook Air M2,"Lightweight laptop with powerful M2 chip.",1199,20,Electronics,2025-06-15 11:10:29
+27,Google Pixel 7 Pro,"Premium Android phone with AI camera features.",899,30,Electronics,2025-06-15 11:10:29
+28,Amazon Echo Dot (5th Gen),"Smart speaker with Alexa voice control.",49.99,70,Electronics,2025-06-15 11:10:29
+29,JBL Flip 6,"Portable Bluetooth speaker with waterproof design.",129.99,60,Electronics,2025-06-15 11:10:29
+30,Roku Streaming Stick 4K,"Streaming device with voice remote.",39.99,50,Electronics,2025-06-15 11:10:29
+31,Atomic Habits,"Practical guide to building better habits.",16.99,120,Books,2025-06-15 11:10:29
+32,Deep Work,"Focus strategies for success in a distracted world.",14.99,110,Books,2025-06-15 11:10:29
+33,Rich Dad Poor Dad,"Finance book on investing and mindset.",13.99,130,Books,2025-06-15 11:10:29
+34,The Subtle Art of Not Giving a F*ck,"Life advice in a brutally honest tone.",18,90,Books,2025-06-15 11:10:29
+35,Educated,"Memoir by Tara Westover about self-education.",19.5,75,Books,2025-06-15 11:10:29
+36,Dyson V8 Vacuum Cleaner,"Cordless stick vacuum for all floor types.",399.99,25,Home,2025-06-15 11:10:29
+37,Brita Water Filter Pitcher,"Filtered water pitcher with 6-cup capacity.",29.99,80,Home,2025-06-15 11:10:29
+38,iRobot Roomba 692,"Wi-Fi enabled robot vacuum with smart navigation.",269.99,18,Home,2025-06-15 11:10:29
+39,Philips Hue White Bulbs,"Smart LED bulbs with Bluetooth control.",39.99,70,Home,2025-06-15 11:10:29
+40,Keurig K-Classic Coffee Maker,"Single serve coffee brewer.",89,60,Home,2025-06-15 11:10:29
+41,Levi's 511 Slim Fit Jeans,"Modern cut denim jeans.",59.99,90,Clothing,2025-06-15 11:10:29
+42,Hanes Tagless T-Shirt (5 Pack),"Comfortable cotton t-shirts.",24.99,200,Clothing,2025-06-15 11:10:29
+43,Columbia Men's Jacket,"Lightweight, water-resistant jacket.",89,50,Clothing,2025-06-15 11:10:29
+44,Champion Hoodie,"Soft cotton hoodie for everyday wear.",44.99,70,Clothing,2025-06-15 11:10:29
+45,Adidas Track Pants,"Athletic pants with 3-stripe design.",49.99,80,Clothing,2025-06-15 11:10:29
+46,Fitbit Charge 5,"Health & fitness tracker with heart rate.",149,30,Sports,2025-06-15 11:10:29
+47,Under Armour Gym Bag,"Duffel bag with large storage.",39.99,60,Sports,2025-06-15 11:10:29
+48,Gaiam Yoga Mat,"Non-slip, extra thick yoga mat.",29.95,70,Sports,2025-06-15 11:10:29
+49,Speedo Swim Goggles,"Anti-fog, UV protected goggles.",15.99,100,Sports,2025-06-15 11:10:29
+50,Bowflex Dumbbells,"Adjustable weight dumbbells (pair).",399,15,Sports,2025-06-15 11:10:29
+51,ASUS ROG Gaming Laptop,"High-performance laptop for gaming.",1599,12,Electronics,2025-06-15 11:10:29
+52,Canon EOS Rebel T7,"DSLR camera with 18-55mm lens.",479,20,Electronics,2025-06-15 11:10:29
+53,Garmin GPS Navigator,"Touchscreen GPS for cars.",129.99,30,Electronics,2025-06-15 11:10:29
+54,WD 2TB External HDD,"Portable hard drive with USB 3.0.",64.99,45,Electronics,2025-06-15 11:10:29
+55,Samsung 32” Smart TV,"1080p Full HD LED Smart TV.",198,25,Electronics,2025-06-15 11:10:29
+56,Atomic Habits,"A guide to building good habits and breaking bad ones.",16.99,50,Books,2025-06-18 20:33:20
+57,Clean Code,"A Handbook of Agile Software Craftsmanship by Robert C. Martin.",34.95,30,Books,2025-06-18 20:33:20
+58,Levi's Jeans,"Classic straight-fit denim jeans.",59.99,25,Fashion,2025-06-18 20:33:20
+59,Adidas Hoodie,"Comfortable hoodie for everyday wear.",49.99,40,Fashion,2025-06-18 20:33:20
+60,Lego Classic Set,"A large box of colorful building blocks.",29.99,35,Toys,2025-06-18 20:33:20
+61,Barbie Dreamhouse,"A three-story dollhouse with furniture.",199.99,10,Toys,2025-06-18 20:33:20
+62,Amazon Gift Card - $50,"Digital gift card redeemable at Amazon.",50,100,Gift Cards,2025-06-18 20:33:20
+63,Steam Gift Card - $20,"Great for gamers to buy games on Steam.",20,100,Gift Cards,2025-06-18 20:33:20
